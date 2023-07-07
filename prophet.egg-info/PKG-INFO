@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: prophet
+Version: 1.1.2
+Summary: Automatic Forecasting Procedure
+Author-email: "Sean J. Taylor" <sjtz@pm.me>, Ben Letham <bletham@fb.com>
+Maintainer-email: Cuong Duong <cuong.duong242@gmail.com>
+License: MIT
+Project-URL: Homepage, https://facebook.github.io/prophet/
+Project-URL: Documentation, https://facebook.github.io/prophet/
+Project-URL: Repository, https://github.com/facebook/prophet
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Provides-Extra: parallel
