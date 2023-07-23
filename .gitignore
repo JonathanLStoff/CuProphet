@@ -1,2 +1,7 @@
 include.zip
 include
+__pycache__
+lib.win-amd64-cpython-39d
+bdist.win-amd64
+/include
+boost
