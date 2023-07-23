@@ -1,4 +1,6 @@
-
+//  Library File for having functions avaliable
+//  to the user header.
+//  By Jonathan Stoff
 #include <cmath>
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
@@ -7,9 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #define DLLEXPORT __declspec(dllexport)
-//DLLEXPORT __declspec(dllimport)
-
-// Declare the functions in the DLL
+//To be added
 __global__ void likelihood_fwgrad(double* X_sm, double* X_sa, double* beta, double* trend, double* result, double* g_X_sm, double* g_X_sa, double* g_beta, double* g_trend, double* g_result, int T, int K) {
     // α + x⋅β || α=trend .* (1 + X_sm * beta), x=X_sa, β=beta
     int i = blockIdx.x * blockDim.x + threadIdx.x;
@@ -30,6 +30,7 @@ __global__ void likelihood_fwgrad(double* X_sm, double* X_sa, double* beta, doub
         
     }
 }
+//To be added
 __global__ void likelihood_all(double* X_sm, double* X_sa, double* beta, double* trend, double* result, int T, int K) {
     // α + x⋅β || α=trend .* (1 + X_sm * beta), x=X_sa, β=beta
     int i = blockIdx.x * blockDim.x + threadIdx.x;
@@ -45,6 +46,7 @@ __global__ void likelihood_all(double* X_sm, double* X_sa, double* beta, double*
         
     }
 }
+//To be added
 __global__ void linear_trend_kernel(double k, double m, double* delta, double* t, double* A, double* t_change, double* result, int T, int S, double* delta_val_1, double* delta_val_2) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < T) {
@@ -63,6 +65,7 @@ __global__ void linear_trend_kernel(double k, double m, double* delta, double* t
 
     }
 }
+//To be added
 __global__ void linear_trend_kernel_help(double k, double m, double* delta, double* t, double* A, double* t_change, double* result, int T, int S, double* delta_val_1, double* delta_val_2) {
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     if (j < (T * S)) {
@@ -81,24 +84,40 @@ __global__ void linear_trend_kernel_help(double k, double m, double* delta, doub
         __syncthreads();
     }
 }
+//  Replaces the Changepoint function in the
+//  .Stan File.
 __global__ void get_changepoint_matrix_kernel(double* t, double* t_change, double* A, int T, int S, double* new_row) {
+    //Get the interation
     int i = blockIdx.x * blockDim.x + threadIdx.x;
+    //Reduce Errors
     if (i < T) {
-      A[i] = 0.0;
-      __shared__ int cp_idx;
-      cp_idx = 1;
+        //reset the i item in matrix A to 0
+        A[i] = 0.0;
+        //Create a shared index
+        __shared__ int cp_idx;
+        cp_idx = 1;
+        //If the conditions continue to be met,
+        //set the index to be 1.
         while ((cp_idx <= S) && (t[i] >= t_change[cp_idx])) {
-          A[i * S + cp_idx] = 1.0;
-          cp_idx++;
-          __syncthreads();
+            A[i * S + cp_idx] = 1.0;
+            cp_idx++;
+            //Make sure to sync so that there arent issues
+            //with race conditions.
+            __syncthreads();
         }
     }
 
 }
+// Essentially a Matrix multiplication.
 __global__ void elementwise_mult_kernel(double* a, double* b, double* c, int N) {
+    // Get the index
     int i = blockIdx.x * blockDim.x + threadIdx.x;
+    // Error check
     if (i < N) {
+        // Multiply to make new matrix
         c[i] = a[i] * b[i];
+        //Make sure to sync so that there arent issues
+        //with race conditions.
         __syncthreads();
     }
 }
