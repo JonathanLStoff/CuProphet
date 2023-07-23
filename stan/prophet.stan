@@ -1,12 +1,10 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Modified by Jonthan Stoff (Stoff Audio LLC)
 functions {
-  //vector cuStan_model(real k, real m, vector delta, real tau, real sigma_obs, vector beta, vector sigmas, vector y, matrix X_sa, matrix X_sm, vector trend);
+  //  Functions declaed in the user header file
   vector cuStan_model(vector beta, matrix X_sa, matrix X_sm, vector trend);
-  //void cuStan_lt(vector mine, vector stan);
   matrix cuStan_chp_mat(vector t, vector t_change, int T, int S);
   matrix cuStan_xmake(matrix X, vector s_x, int T);
+  //  get_changepoint_matrix replaced by cuStan_chp_mat
   matrix get_changepoint_matrix(vector t, vector t_change, int T, int S) {
     // Assumes t and t_change are sorted.
     matrix[T, S] A;
@@ -26,7 +24,7 @@ functions {
     }
     return A;
   }
-  // Logistic trend functions
+  // Unchanged: Logistic trend functions
   vector logistic_gamma(real k, real m, vector delta, vector t_change, int S) {
     vector[S] gamma;  // adjusted offsets, for piecewise continuity
     vector[S + 1] k_s;  // actual rate in each segment
@@ -57,9 +55,7 @@ functions {
     gamma = logistic_gamma(k, m, delta, t_change, S);
     return cap .* inv_logit((k + A * delta) .* (t - (m + A * gamma)));
   }
-
   // Linear trend function
-
   vector linear_trend(
     real k,
     real m,
@@ -101,9 +97,10 @@ data {
 }
 
 transformed data {
+  // All these use Cuda
   matrix[T, S] A = cuStan_chp_mat(t, t_change, T, S);
-  matrix[T, K] X_sa = cuStan_xmake(X, s_a, T);//X .* rep_matrix(s_a', T); // big resorce hog
-  matrix[T, K] X_sm = cuStan_xmake(X, s_m, T);//X .* rep_matrix(s_m', T); // big resorce hog
+  matrix[T, K] X_sa = cuStan_xmake(X, s_a, T);
+  matrix[T, K] X_sm = cuStan_xmake(X, s_m, T);
 }
 
 parameters {
