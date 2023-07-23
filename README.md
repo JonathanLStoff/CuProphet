@@ -1,4 +1,4 @@
-<center><span style="font-size:25px"> CuProphet ||</span> <span style="font-size:18px">Prophet built to use CUDA <em>Novum</em></span>
+<center><span style="font-size:25px"> CuProphet ||</span> <span style="font-size:18px">Prophet built to use CUDA</span>
 
 ![Build](https://github.com/facebook/prophet/workflows/Build/badge.svg)
 
