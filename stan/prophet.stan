@@ -97,7 +97,7 @@ data {
 }
 
 transformed data {
-  // All these use Cuda
+  // All these use Cuda to fix some of the speed
   matrix[T, S] A = cuStan_chp_mat(t, t_change, T, S);
   matrix[T, K] X_sa = cuStan_xmake(X, s_a, T);
   matrix[T, K] X_sm = cuStan_xmake(X, s_m, T);
