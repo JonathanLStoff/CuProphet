@@ -131,13 +131,13 @@ model {
   beta ~ normal(0, sigmas);
   
   // Likelihood
-  y ~ normal(cuStan_model(beta, X_sa, X_sm, trend), sigma_obs);
-  //y ~ normal_id_glm(
-   // X_sa,
-    //trend .* (1 + X_sm * beta),
-    //beta,
-    //sigma_obs
-  //);
+  //y ~ normal(cuStan_model(beta, X_sa, X_sm, trend), sigma_obs);
+  y ~ normal_id_glm(
+    X_sa,
+    trend .* (1 + X_sm * beta),
+    beta,
+    sigma_obs
+  );
 }
   //cuStan_lt(cuStan_model(beta, X_sa, X_sm, trend), (trend .* (1 + X_sm * beta)));
   // //this: y ~ Normal(α + x⋅β, σ) α=trend .* (1 + X_sm * beta), x=X_sa, β=beta, σ=sigma_obs
