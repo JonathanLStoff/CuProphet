@@ -5,3 +5,4 @@ lib.win-amd64-cpython-39d
 bdist.win-amd64
 /include
 boost
+dist

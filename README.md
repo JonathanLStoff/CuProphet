@@ -32,7 +32,11 @@ _____
         python setup.py install
         cd ".\CuProphet-Master\hppfiles"
         nvcc -o cuda_func_help.dll --shared -v -arch=sm_86 --fmad=false -g cuda_func_help.cu
+# Install instructions
+* Run this:
 
+
+        pip install cuprophet
 
 [![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://www.paypal.com/donate?hosted_button_id=9ELH753DDE98Y)
         

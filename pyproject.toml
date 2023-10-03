@@ -1,0 +1,71 @@
+[tool.poetry.dependencies]
+python = "^3.9"
+cmdstanpy-opencl = "^0.9.70"
+numpy = "^1.15.4"
+matplotlib = "*"
+pandas = "*"
+LunarCalendar = "^0.0.9"
+convertdate = "^2.1.2"
+holidays = "^0.14.2"
+python-dateutil = "^2.8.0"
+tqdm = "^4.36.1"
+importlib_resources = "*"
+
+[project]
+name = "prophet"
+dynamic = ["version"]
+description = "Automatic Forecasting Procedure"
+readme = "README.md"
+requires-python = ">=3.7"
+
+authors = [
+  {name = "Sean J. Taylor", email = "sjtz@pm.me"},
+  {name = "Ben Letham", email = "bletham@fb.com"},
+]
+maintainers = [
+  {name = "Cuong Duong", email = "cuong.duong242@gmail.com"},
+]
+license = {text = "MIT"}
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+
+[tool.poetry.group.dev.dependencies]
+setuptools = "*"
+wheel = "*"
+pytest = "*"
+jupyterlab = "*"
+nbconvert = "*"
+plotly = "*"
+dask = {extras = ["dataframe"], version = "*"}
+distributed = "*"
+
+
+[project.urls]
+Homepage = "https://facebook.github.io/prophet/"
+Documentation = "https://facebook.github.io/prophet/"
+Repository = "https://github.com/facebook/prophet"
+
+[tool.poetry]
+name = "cuprophet"
+version = "0.2.1"
+packages = [{include = "prophet"}]
+description = ""
+authors = ["StoffAudioLLC <stoffaudio@gmail.com>"]
+readme = "README.md"
+
+
+
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [
+  "poetry-core",
+  "cmdstanpy-opencl>=0.9.70",
+]

@@ -1,7 +1,7 @@
-cmdstanpy>=1.0.4
+cmdstanpy-opencl
 numpy>=1.15.4
-matplotlib>=2.0.0
-pandas>=1.0.4
+matplotlib
+pandas
 LunarCalendar>=0.0.9
 convertdate>=2.1.2
 holidays>=0.14.2
